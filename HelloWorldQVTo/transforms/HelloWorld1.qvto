@@ -1,0 +1,5 @@
+transformation HelloWorld1();
+
+main() {
+    log('Hello world');
+}

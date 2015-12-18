@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project name="HelloWorldATL">
+    <target name="HelloWorld3">
+        <!-- Loading metamodels -->
+        <atl.loadModel name="Ecore" metamodel="MOF" nsURI="http://www.eclipse.org/emf/2002/Ecore" />
+        <!-- Loading models -->
+        <atl.loadModel name="IN" metamodel="Ecore" path="output/MyModel2.xmi" />
+        <!-- Transformation -->
+        <atl.launch path="HelloWorld3.atl">
+            <inmodel name="IN" model="IN" />
+            <outmodel name="OUT" model="OUT" metamodel="Ecore" />
+        </atl.launch>
+        <!-- Saving models -->
+        <atl.saveModel model="OUT" path="output/MyModel3.xmi" />
+    </target>
+    <target name="HelloWorld4">
+        <!-- Loading metamodels -->
+        <atl.loadModel name="Ecore" metamodel="MOF" nsURI="http://www.eclipse.org/emf/2002/Ecore" />
+        <!-- Loading models -->
+        <atl.loadModel name="IN" metamodel="Ecore" path="output/MyModel2.xmi" />
+        <!-- Transformation -->
+        <atl.launch path="HelloWorld4.atl" refining="true">
+            <inoutmodel name="IN" model="IN" />
+        </atl.launch>
+        <!-- Saving models -->
+        <atl.saveModel model="IN" path="output/MyModel4.xmi" />
+    </target>
+    <target name="ATLCopy">
+        <!-- Loading metamodels -->
+        <atl.loadModel name="ATL" metamodel="MOF" nsURI="platform:/plugin/org.eclipse.m2m.atl.common/org/eclipse/m2m/atl/common/resources/ATL.ecore" />
+        <!-- Loading models -->
+        <atl.loadModel name="IN" metamodel="ATL" path="HelloWorld5.atl">
+            <injector name="ATL" />
+        </atl.loadModel>
+        <!-- Saving models -->
+        <atl.saveModel model="IN" path="output/HelloWorld5.atl.xmi" />
+    </target>
+    <target name="GenerateHelloWorld">
+        <!-- Loading metamodels -->
+        <atl.loadModel name="Ecore" metamodel="MOF" nsURI="http://www.eclipse.org/emf/2002/Ecore" />
+        <atl.loadModel name="ATL" metamodel="MOF" nsURI="platform:/plugin/org.eclipse.m2m.atl.common/org/eclipse/m2m/atl/common/resources/ATL.ecore" />
+        <!-- Loading models -->
+        <atl.loadModel name="IN" metamodel="Ecore" path="output/MyModel2.xmi" />
+        <!-- Transformation -->
+        <atl.launch path="GenerateHelloWorld.atl">
+            <inmodel name="IN" model="IN" />
+            <outmodel name="OUT" model="OUT" metamodel="ATL" />
+        </atl.launch>
+        <!-- Saving models -->
+        <atl.saveModel model="OUT" path="output/HelloWorld5.atl">
+            <extractor name="ATL" />
+        </atl.saveModel>
+    </target>
+    <target name="HelloWorld5">
+        <!-- Loading metamodels -->
+        <atl.loadModel name="Ecore" metamodel="MOF" nsURI="http://www.eclipse.org/emf/2002/Ecore" />
+        <!-- Loading models -->
+        <atl.loadModel name="IN" metamodel="Ecore" path="output/MyModel2.xmi" />
+        <!-- Transformation -->
+        <atl.launch path="output/HelloWorld5.atl">
+            <inmodel name="IN" model="IN" />
+            <outmodel name="OUT" model="OUT" metamodel="Ecore" />
+        </atl.launch>
+        <!-- Saving models -->
+        <atl.saveModel model="OUT" path="output/MyModel5.xmi" />
+    </target>
+</project>

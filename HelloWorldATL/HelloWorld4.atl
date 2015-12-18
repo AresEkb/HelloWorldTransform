@@ -1,0 +1,23 @@
+-- @atlcompiler atl2010
+-- @nsURI Ecore = http://www.eclipse.org/emf/2002/Ecore
+
+module HelloWorld4;
+create OUT : Ecore refining IN : Ecore;
+
+rule sayHello
+{
+	from
+		s : Ecore!ENamedElement (s.name <> 'Bob')
+	to
+		t : Ecore!ENamedElement (
+			name <- 'Hello' + s.name
+		)
+}
+
+rule killBob
+{
+	from
+		s : Ecore!ENamedElement (s.name = 'Bob')
+	to
+		drop
+}

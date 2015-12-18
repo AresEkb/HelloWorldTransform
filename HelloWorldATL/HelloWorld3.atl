@@ -1,0 +1,27 @@
+-- @nsURI Ecore = http://www.eclipse.org/emf/2002/Ecore
+
+module HelloWorld3;
+create OUT : Ecore from IN : Ecore;
+
+rule toEPackage
+{
+	from
+		package : Ecore!EPackage
+	to 
+		newPackage : Ecore!EPackage (
+			name <- 'Hello' + package.name,
+			eClassifiers <- package.eClassifiers
+		)
+}
+
+rule toEDataType
+{
+	from
+		classifier : Ecore!EClassifier
+	to 
+		dataType : Ecore!EDataType (
+			name <- 'Hello' + classifier.name,
+			instanceClassName <- 'some.ns.' + classifier.name + 'Class',
+			serializable <- false
+		)
+}

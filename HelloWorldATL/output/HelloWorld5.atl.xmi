@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:atl="http://www.eclipse.org/gmt/2005/ATL" xmlns:ocl="http://www.eclipse.org/gmt/2005/OCL">
+  <atl:Module location="3:1-26:2" name="HelloWorld5">
+    <commentsBefore>-- @nsURI Ecore = http://www.eclipse.org/emf/2002/Ecore</commentsBefore>
+    <inModels location="4:25-4:35" name="IN" metamodel="/2"/>
+    <outModels location="4:8-4:19" name="OUT" metamodel="/1"/>
+    <elements xsi:type="atl:MatchedRule" location="6:1-15:2" name="SayHelloToAlice">
+      <outPattern location="11:2-14:4">
+        <elements xsi:type="atl:SimpleOutPatternElement" location="12:3-14:4" varName="datatype">
+          <type xsi:type="ocl:OclModelElement" location="12:14-12:29" name="EDataType" model="/4"/>
+          <bindings location="13:4-13:37" propertyName="name">
+            <value xsi:type="ocl:OperatorCallExp" location="13:12-13:37" operationName="+">
+              <source xsi:type="ocl:StringExp" location="13:12-13:19" stringSymbol="Hello"/>
+              <arguments xsi:type="ocl:NavigationOrAttributeCallExp" location="13:22-13:37" name="name">
+                <source xsi:type="ocl:VariableExp" location="13:22-13:32" referredVariable="/0/@elements.0/@inPattern/@elements.0"/>
+              </arguments>
+            </value>
+          </bindings>
+        </elements>
+      </outPattern>
+      <inPattern location="7:2-10:4">
+        <elements xsi:type="atl:SimpleInPatternElement" location="8:3-8:33" varName="classifier" variableExp="/0/@elements.0/@inPattern/@filter/@source/@source /0/@elements.0/@outPattern/@elements.0/@bindings.0/@value/@arguments.0/@source">
+          <type xsi:type="ocl:OclModelElement" location="8:16-8:33" name="EClassifier" model="/3"/>
+        </elements>
+        <filter xsi:type="ocl:OperatorCallExp" location="9:4-9:29" operationName="=">
+          <source xsi:type="ocl:NavigationOrAttributeCallExp" location="9:4-9:19" name="name">
+            <source xsi:type="ocl:VariableExp" location="9:4-9:14" referredVariable="/0/@elements.0/@inPattern/@elements.0"/>
+          </source>
+          <arguments xsi:type="ocl:StringExp" location="9:22-9:29" stringSymbol="Alice"/>
+        </filter>
+      </inPattern>
+    </elements>
+    <elements xsi:type="atl:MatchedRule" location="17:1-26:2" name="SayHelloToBob">
+      <outPattern location="22:2-25:4">
+        <elements xsi:type="atl:SimpleOutPatternElement" location="23:3-25:4" varName="datatype">
+          <type xsi:type="ocl:OclModelElement" location="23:14-23:29" name="EDataType" model="/6"/>
+          <bindings location="24:4-24:37" propertyName="name">
+            <value xsi:type="ocl:OperatorCallExp" location="24:12-24:37" operationName="+">
+              <source xsi:type="ocl:StringExp" location="24:12-24:19" stringSymbol="Hello"/>
+              <arguments xsi:type="ocl:NavigationOrAttributeCallExp" location="24:22-24:37" name="name">
+                <source xsi:type="ocl:VariableExp" location="24:22-24:32" referredVariable="/0/@elements.1/@inPattern/@elements.0"/>
+              </arguments>
+            </value>
+          </bindings>
+        </elements>
+      </outPattern>
+      <inPattern location="18:2-21:4">
+        <elements xsi:type="atl:SimpleInPatternElement" location="19:3-19:33" varName="classifier" variableExp="/0/@elements.1/@inPattern/@filter/@source/@source /0/@elements.1/@outPattern/@elements.0/@bindings.0/@value/@arguments.0/@source">
+          <type xsi:type="ocl:OclModelElement" location="19:16-19:33" name="EClassifier" model="/5"/>
+        </elements>
+        <filter xsi:type="ocl:OperatorCallExp" location="20:4-20:27" operationName="=">
+          <source xsi:type="ocl:NavigationOrAttributeCallExp" location="20:4-20:19" name="name">
+            <source xsi:type="ocl:VariableExp" location="20:4-20:14" referredVariable="/0/@elements.1/@inPattern/@elements.0"/>
+          </source>
+          <arguments xsi:type="ocl:StringExp" location="20:22-20:27" stringSymbol="Bob"/>
+        </filter>
+      </inPattern>
+    </elements>
+  </atl:Module>
+  <ocl:OclModel location="4:14-4:19" name="Ecore" model="/0/@outModels.0"/>
+  <ocl:OclModel location="4:30-4:35" name="Ecore" model="/0/@inModels.0"/>
+  <ocl:OclModel location="8:16-8:21" name="Ecore" elements="/0/@elements.0/@inPattern/@elements.0/@type"/>
+  <ocl:OclModel location="12:14-12:19" name="Ecore" elements="/0/@elements.0/@outPattern/@elements.0/@type"/>
+  <ocl:OclModel location="19:16-19:21" name="Ecore" elements="/0/@elements.1/@inPattern/@elements.0/@type"/>
+  <ocl:OclModel location="23:14-23:19" name="Ecore" elements="/0/@elements.1/@outPattern/@elements.0/@type"/>
+</xmi:XMI>

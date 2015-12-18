@@ -1,0 +1,26 @@
+module HelloWorld;
+create OUT : Ecore from IN : Ecore;
+
+rule SayHelloToAlice {
+ from
+  classifier : Ecore!EClassifier
+  (
+   classifier.name = 'Alice'
+  )
+ to
+  datatype : Ecore!EDataType (
+   name <- 'Hello' + classifier.name
+  )
+}
+
+rule SayHelloToBob {
+ from
+  classifier : Ecore!EClassifier
+  (
+   classifier.name = 'Bob'
+  )
+ to
+  datatype : Ecore!EDataType (
+   name <- 'Hello' + classifier.name
+  )
+}

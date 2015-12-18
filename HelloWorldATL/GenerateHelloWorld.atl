@@ -1,0 +1,109 @@
+-- @nsURI Ecore = http://www.eclipse.org/emf/2002/Ecore
+-- @path ATL=platform:/plugin/org.eclipse.m2m.atl.common/org/eclipse/m2m/atl/common/resources/ATL.ecore
+
+module GenerateHelloWorld;
+create OUT : ATL from IN : Ecore;
+
+rule EPackageToModule {
+    from
+    	package : Ecore!EPackage
+	to
+		_module : ATL!Module (
+			name <- 'HelloWorld5',
+			inModels <- thisModule.createEcoreModel('IN'),
+			outModels <- thisModule.createEcoreModel('OUT'),
+			elements <- package.eClassifiers
+		)
+}
+
+rule EClassifierToRule {
+	from
+		classifier : Ecore!EClassifier
+	to
+		_rule : ATL!MatchedRule (
+			name <- 'SayHelloTo' + classifier.name,
+			inPattern <- _in,
+			outPattern <- _out
+		),
+		-- InPattern
+		_in : ATL!InPattern (
+		    elements <- inElement,
+		    filter <- inFilter
+		),
+		inElement : ATL!SimpleInPatternElement (
+		    varName <- 'classifier',
+		    type <- thisModule.createEcoreModelElement('EClassifier')
+		),
+		inFilter : ATL!"OCL::OperatorCallExp" (
+			operationName <- '=',
+			source <- thisModule.createAttributeCallExp(inElement, 'name'),
+			arguments <- thisModule.createStringExp(classifier.name)
+		),
+		-- OutPattern
+		_out : ATL!OutPattern (
+		    elements <- outElement
+		),
+		outElement : ATL!SimpleOutPatternElement (
+		    varName <- 'datatype',
+		    type <- thisModule.createEcoreModelElement('EDataType'),
+		    bindings <- nameBinding
+		),
+		nameBinding : ATL!Binding (
+	    	propertyName <- 'name',
+	    	value <- helloPrefixOperatorExp
+		),
+		helloPrefixOperatorExp : ATL!"OCL::OperatorCallExp" (
+			operationName <- '+',
+			source <- thisModule.createStringExp('Hello'),
+			arguments <- thisModule.createAttributeCallExp(inElement, 'name')
+		)
+}
+
+lazy rule createEcoreModel {
+    from
+    	name : String
+    to
+		model : ATL!OclModel (
+		    name <- name,
+		    metamodel <- ecoreMM
+		),
+		ecoreMM : ATL!OclModel (
+		    name <- 'Ecore'
+		)
+}
+
+lazy rule createEcoreModelElement {
+    from
+    	name : String
+    to
+		element : ATL!"OCL::OclModelElement" (
+		   	model <- model,
+		    name <- name
+		),
+    	model : ATL!OclModel (
+			name <- 'Ecore'
+		)
+}
+
+lazy rule createAttributeCallExp {
+    from
+    	var : ATL!SimpleInPatternElement,
+    	name : String
+    to
+    	expr : ATL!"OCL::NavigationOrAttributeCallExp" (
+			name <- name,
+			source <- variableExp
+		),
+		variableExp : ATL!"OCL::VariableExp" (
+			referredVariable <- var
+		)
+}
+
+lazy rule createStringExp {
+    from
+    	str : String
+    to
+    	expr : ATL!"OCL::StringExp" (
+			stringSymbol <- str
+		)
+}

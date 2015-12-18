@@ -1,0 +1,11 @@
+modeltype ECORE 'strict' uses 'http://www.eclipse.org/emf/2002/Ecore';
+
+transformation HelloWorld2(out o : ECORE);
+
+main() {
+    object EPackage {
+        name := 'World';
+        eClassifiers += object EClass { name := 'Alice'; };
+        eClassifiers += object EClass { name := 'Bob'; };
+    };
+}

@@ -1,0 +1,20 @@
+modeltype ECORE 'strict' uses 'http://www.eclipse.org/emf/2002/Ecore';
+
+transformation HelloWorld3(in i : ECORE, out o : ECORE);
+
+main() {
+    i.rootObjects()[EPackage]->toEPackage();
+}
+
+mapping EPackage::toEPackage() : EPackage
+{
+    name := 'Hello' + self.name;
+    eClassifiers := self.eClassifiers->toEDataType();
+}
+
+mapping EClassifier::toEDataType() : EDataType
+{
+    name := 'Hello' + self.name;
+    instanceClassName := 'some.ns.' + self.name + 'Class';
+    serializable := false;
+}
